@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.guohe.dao.StudentDao">
+    <resultMap type="cn.guohe.pojo.Student" id="studentMap">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="father_name" property="fatherName"/>
+        <result column="mother_name" property="motherName"/>
+        <result column="relative_name" property="relativeName"/>
+        <result column="birthday" property="birthday"/>
+        <result column="phone_num" property="phoneNum"/>
+        <result column="sign_date" property="signDate"/>
+        <result column="used_lessons" property="usedLessons"/>
+        <result column="bought_lessons" property="boughtLessons"/>
+        <result column="lesson_id" property="lessonId"/>
+        <result column="lesson_name" property="lessonName"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into student (name, gender, father_name, mother_name, relative_name, birthday, phone_num, sign_date, used_lessons,
+        bought_lessons, lesson_id, lesson_name, gmt_create, gmt_modified)
+        values ( #{name}, #{gender}, #{fatherName}, #{motherName}, #{relativeName}, #{birthday}, #{phoneNum}, #{signDate}, #{usedLessons},
+        #{boughtLessons}, #{lessonId}, #{lessonName},  now(), now())
+    </insert>
+
+    <select id="findAll" resultType="cn.guohe.pojo.Student" resultMap="studentMap">
+        SELECT * FROM student
+    </select>
+
+    <select id="findStudent" resultType="cn.guohe.pojo.Student" resultMap="studentMap">
+        SELECT * FROM student WHERE id = #{id}
+    </select>
+
+
+    <select id="findStudentByName" resultType="cn.guohe.pojo.Student" resultMap="studentMap">
+        SELECT * FROM student WHERE name LIKE CONCAT(CONCAT('%', #{name}), '%')
+    </select>
+
+    <!--<select id="poll" resultType="list" resultMap="taskUserMap">-->
+        <!--SELECT id, task_id, user_name, user_pass, user_email,-->
+        <!--user_mobile, real_name, user_nick, user_sex, user_address, user_company, user_age, user_flag,-->
+        <!--identity_code, gmt_create, gmt_modified FROM task_user-->
+        <!--WHERE gmt_modified >= #{from}-->
+    <!--</select>-->
+
+    <!--<update id="updateRecord">-->
+        <!--update student set gmt_modified = now()-->
+        <!--<if test="userName != null">-->
+            <!--, user_name = #{userName}-->
+        <!--</if>-->
+        <!--<if test="userPass != null">-->
+            <!--, user_pass = #{userPass}-->
+        <!--</if>-->
+        <!--<if test="userEmail != null">-->
+            <!--, user_email = #{userEmail}-->
+        <!--</if>-->
+        <!--<if test="userMobile != null">-->
+            <!--, user_mobile = #{userMobile}-->
+        <!--</if>-->
+        <!--<if test="realName != null">-->
+            <!--, real_name = #{realName}-->
+        <!--</if>-->
+        <!--<if test="userNick != null">-->
+            <!--, user_nick = #{userNick}-->
+        <!--</if>-->
+        <!--<if test="userAddress != null">-->
+            <!--, user_address = #{userAddress}-->
+        <!--</if>-->
+        <!--<if test="userSex != null">-->
+            <!--, user_sex = #{userSex}-->
+        <!--</if>-->
+        <!--<if test="userCompany != null">-->
+            <!--, user_company = #{userCompany}-->
+        <!--</if>-->
+        <!--<if test="userAge != null">-->
+            <!--, user_age = #{userAge}-->
+        <!--</if>-->
+        <!--<if test="userFlag != null">-->
+            <!--, user_flag = #{userFlag}-->
+        <!--</if>-->
+        <!--<if test="identityCode != null">-->
+            <!--, identity_code = #{identityCode}-->
+        <!--</if>-->
+        <!--where task_id = #{taskId}-->
+    <!--</update>-->
+
+    <update id="updateUsedLessons">
+        update student set gmt_modified = now(), used_lessons = #{usedLessons}, lesson_name = #{lessonName} ,bought_lessons=#{boughtLessons} where id = #{id}
+    </update>
+
+    <delete id="deleteStudent">
+        delete from student where id = #{0}
+    </delete>
+
+</mapper>

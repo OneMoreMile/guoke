@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.guohe.dao.LessonDao">
+    <resultMap type="cn.guohe.pojo.Lesson" id="lessonMap">
+        <id column="id" property="id"/>
+        <result column="lesson_name" property="lessonName"/>
+        <result column="price" property="price"/>
+        <result column="lesson_desc" property="lessonDesc"/>
+        <result column="learn_times" property="learnTimes"/>
+        <result column="gmt_create" property="gmtCreate"/>
+        <result column="gmt_modified" property="gmtModified"/>
+    </resultMap>
+
+    <insert id="insert">
+        insert into lesson (lesson_name, price, lesson_desc, learn_times, gmt_create, gmt_modified)
+        values ( #{lessonName}, #{price}, #{lessonDesc}, #{learnTimes}, now(), now())
+    </insert>
+
+    <select id="findAll" resultType="cn.guohe.pojo.Lesson" resultMap="lessonMap">
+        SELECT * FROM lesson
+    </select>
+
+    <select id="findById" resultType="cn.guohe.pojo.Lesson" resultMap="lessonMap">
+        SELECT * FROM lesson WHERE id=#{id}
+    </select>
+
+</mapper>
