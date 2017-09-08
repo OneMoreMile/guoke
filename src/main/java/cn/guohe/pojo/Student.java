@@ -11,7 +11,6 @@ public class Student {
     private String gender;
     private String fatherName;
     private String motherName;
-    private String relativeName;
     private String birthday;
 
     private Date signDate;
@@ -25,6 +24,14 @@ public class Student {
 
     private Date gmtCreate;
     private Date gmtModified;
+
+    private String phoneNum2;
+    private String primarySchool;
+    private String kidGarden;
+    private String middleSchool;
+    private String wechat;
+    private String qq;
+    private String homeAddress;
 
     public String getName() {
         return name;
@@ -56,14 +63,6 @@ public class Student {
 
     public void setMotherName(String motherName) {
         this.motherName = motherName;
-    }
-
-    public String getRelativeName() {
-        return relativeName;
-    }
-
-    public void setRelativeName(String relativeName) {
-        this.relativeName = relativeName;
     }
 
     public String getBirthday() {
@@ -152,5 +151,61 @@ public class Student {
 
     public void setLessonId(int lessonId) {
         this.lessonId = lessonId;
+    }
+
+    public String getPhoneNum2() {
+        return phoneNum2;
+    }
+
+    public void setPhoneNum2(String phoneNum2) {
+        this.phoneNum2 = phoneNum2;
+    }
+
+    public String getPrimarySchool() {
+        return primarySchool;
+    }
+
+    public void setPrimarySchool(String primarySchool) {
+        this.primarySchool = primarySchool;
+    }
+
+    public String getKidGarden() {
+        return kidGarden;
+    }
+
+    public void setKidGarden(String kidGarden) {
+        this.kidGarden = kidGarden;
+    }
+
+    public String getMiddleSchool() {
+        return middleSchool;
+    }
+
+    public void setMiddleSchool(String middleSchool) {
+        this.middleSchool = middleSchool;
+    }
+
+    public String getWechat() {
+        return wechat;
+    }
+
+    public void setWechat(String wechat) {
+        this.wechat = wechat;
+    }
+
+    public String getQq() {
+        return qq;
+    }
+
+    public void setQq(String qq) {
+        this.qq = qq;
+    }
+
+    public String getHomeAddress() {
+        return homeAddress;
+    }
+
+    public void setHomeAddress(String homeAddress) {
+        this.homeAddress = homeAddress;
     }
 }

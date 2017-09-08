@@ -9,7 +9,6 @@
         <result column="gender" property="gender"/>
         <result column="father_name" property="fatherName"/>
         <result column="mother_name" property="motherName"/>
-        <result column="relative_name" property="relativeName"/>
         <result column="birthday" property="birthday"/>
         <result column="phone_num" property="phoneNum"/>
         <result column="sign_date" property="signDate"/>
@@ -17,15 +16,22 @@
         <result column="bought_lessons" property="boughtLessons"/>
         <result column="lesson_id" property="lessonId"/>
         <result column="lesson_name" property="lessonName"/>
+        <result column="primary_school" property="primarySchool"/>
+        <result column="kid_garden" property="kidGarden"/>
+        <result column="middle_school" property="middleSchool"/>
+        <result column="home_address" property="homeAddress"/>
+        <result column="phone_num2" property="phoneNum2"/>
+        <result column="wechat" property="wechat"/>
+        <result column="qq" property="qq"/>
         <result column="gmt_create" property="gmtCreate"/>
         <result column="gmt_modified" property="gmtModified"/>
     </resultMap>
 
     <insert id="insert">
-        insert into student (name, gender, father_name, mother_name, relative_name, birthday, phone_num, sign_date, used_lessons,
-        bought_lessons, lesson_id, lesson_name, gmt_create, gmt_modified)
-        values ( #{name}, #{gender}, #{fatherName}, #{motherName}, #{relativeName}, #{birthday}, #{phoneNum}, #{signDate}, #{usedLessons},
-        #{boughtLessons}, #{lessonId}, #{lessonName},  now(), now())
+        insert into student (name, gender, father_name, mother_name,birthday, phone_num, sign_date, used_lessons,
+        bought_lessons, lesson_id, lesson_name, primary_school, kid_garden, middle_school, home_address, phone_num2, wechat, qq, gmt_create, gmt_modified)
+        values ( #{name}, #{gender}, #{fatherName}, #{motherName}, #{birthday}, #{phoneNum}, #{signDate}, #{usedLessons},
+        #{boughtLessons}, #{lessonId}, #{lessonName}, #{primarySchool}, #{kidGarden}, #{middleSchool}, #{homeAddress}, #{phoneNum2}, #{wechat}, #{qq},  now(), now())
     </insert>
 
     <select id="findAll" resultType="cn.guohe.pojo.Student" resultMap="studentMap">

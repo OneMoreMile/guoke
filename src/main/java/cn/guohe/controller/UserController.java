@@ -10,6 +10,7 @@ import cn.guohe.pojo.Student;
 import cn.guohe.pojo.User;
 import cn.guohe.pojo.page.ClassRenew;
 import cn.guohe.pojo.page.ClassSpend;
+import cn.guohe.pojo.page.LessonPage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by dongliang on 7/30/17.
@@ -52,7 +54,7 @@ public class UserController {
 
     @RequestMapping(value = "/userlist", method = RequestMethod.POST)
     public ModelAndView userList(String type, String studentId, String studentName, Student stu) {
-        ModelAndView mav = new ModelAndView("userlist");
+        ModelAndView mav = new ModelAndView("user_list");
         if ("init".equals(type)) {
             List<Student> studentList = studentDao.findAll();
             final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -62,11 +64,15 @@ public class UserController {
             });
 
             mav.getModel().put("studentList", studentList);
-
+            mav.getModel().put("lessonList", lessonDao.findAll());
             return mav;
         }else if ("query".equals(type)){
-            List<Student> studentList = studentDao.findStudentByName(studentName);
-
+            List<Student> studentList = new ArrayList<>();
+            if (studentName == null){
+                studentList = studentDao.findAll();
+            }else {
+                studentList = studentDao.findStudentByName(studentName);
+            }
             final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
             studentList.forEach(k -> {
@@ -74,7 +80,7 @@ public class UserController {
             });
 
             mav.getModel().put("studentList", studentList);
-
+            mav.getModel().put("lessonList", lessonDao.findAll());
             return mav;
         }else if ("renewClass".equals(type)){//TODO
             Student student = studentDao.findStudent(Integer.parseInt(studentId));
@@ -142,10 +148,42 @@ public class UserController {
     @RequestMapping(value = "/recordClassPage", method = RequestMethod.POST)
     public ModelAndView recordClass() {
         ModelAndView mav=new ModelAndView("new_learn_record");
-        mav.addObject("time", new Date());
 
         List<Lesson> lessonList = lessonDao.findAll();
         mav.getModel().put("lessonList", lessonList);
+        return mav;
+    }
+
+    @RequestMapping(value = "/newLessonPage", method = RequestMethod.POST)
+    public ModelAndView newLesson() {
+        ModelAndView mav=new ModelAndView("new_lesson_define");
+        return mav;
+    }
+
+    @RequestMapping(value = "/saveNewLesson", method = RequestMethod.POST)
+    public ModelAndView saveNewLesson(String lessonName, String learnTimes, String lessonDesc) {
+        Lesson lesson = new Lesson();
+        lesson.setLessonName(lessonName);
+        lesson.setLearnTimes(Integer.parseInt(learnTimes));
+        lesson.setLessonDesc(lessonDesc);
+        lessonDao.insert(lesson);
+
+        ModelAndView mav=new ModelAndView("lesson_list");
+        List<Lesson> lessonList = lessonDao.findAll();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        List<LessonPage> lessonPageList = lessonList.stream().map( l -> {
+            LessonPage lessonPage = new LessonPage();
+            lessonPage.setLessonName(l.getLessonName());
+            lessonPage.setLearnTimes(l.getLearnTimes());
+            lessonPage.setLessonDesc(l.getLessonDesc());
+            lessonPage.setCreateDateStr(sdf.format(l.getGmtCreate()));
+
+            return lessonPage;
+        }).collect(Collectors.toList());
+
+        mav.getModel().put("lessonPageList", lessonPageList);
         return mav;
     }
 
@@ -175,9 +213,15 @@ public class UserController {
 
         studentDao.insert(student);
 
-        ModelAndView mav=new ModelAndView("userlist");
-        List<Lesson> lessonList = lessonDao.findAll();
-        mav.getModel().put("lessonList", lessonList);
+        ModelAndView mav=new ModelAndView("user_list");
+        List<Student> studentList = studentDao.findAll();
+
+        studentList.forEach(k -> {
+            k.setSignDateStr(sdf.format(k.getGmtCreate()));
+        });
+
+        mav.getModel().put("studentList", studentList);
+        mav.getModel().put("lessonList", lessonDao.findAll());
         return mav;
     }
 
@@ -264,7 +308,7 @@ public class UserController {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        ModelAndView mav=new ModelAndView("userlist");
+        ModelAndView mav=new ModelAndView("user_list");
         List<Student> studentList = studentDao.findAll();
 
         studentList.forEach(k -> {
@@ -283,7 +327,7 @@ public class UserController {
         if (session.getAttribute("userid") != null){
             //directly go to student list
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            ModelAndView mav = new ModelAndView("userlist");
+            ModelAndView mav = new ModelAndView("user_list");
             List<Student> studentList = studentDao.findAll();
 
             studentList.forEach(k -> {
@@ -291,6 +335,8 @@ public class UserController {
             });
 
             mav.getModel().put("studentList", studentList);
+            mav.getModel().put("lessonList", lessonDao.findAll());
+
             return mav;
         }
 
@@ -299,7 +345,7 @@ public class UserController {
             session.setAttribute("userid", user.getId());
 
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            ModelAndView mav = new ModelAndView("userlist");
+            ModelAndView mav = new ModelAndView("user_list");
             List<Student> studentList = studentDao.findAll();
 
             studentList.forEach(k -> {
@@ -307,6 +353,7 @@ public class UserController {
             });
 
             mav.getModel().put("studentList", studentList);
+            mav.getModel().put("lessonList", lessonDao.findAll());
             return mav;
         }else {
             ModelAndView mav = new ModelAndView("login");
@@ -348,7 +395,7 @@ public class UserController {
             studentDao.updateUsedLessons(student);
         }
 
-        ModelAndView mav=new ModelAndView("userlist");
+        ModelAndView mav=new ModelAndView("user_list");
         List<Student> studentList = studentDao.findAll();
 
         studentList.forEach(k -> {
@@ -366,7 +413,7 @@ public class UserController {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        ModelAndView mav=new ModelAndView("userlist");
+        ModelAndView mav=new ModelAndView("user_list");
         List<Student> studentList = studentDao.findAll();
 
         studentList.forEach(k -> {
@@ -375,6 +422,27 @@ public class UserController {
 
         mav.getModel().put("studentList", studentList);
 
+        return mav;
+    }
+
+    @RequestMapping(value = "/lessonlist", method = RequestMethod.POST)
+    public ModelAndView lessonlist(String selectStudentId) {
+        ModelAndView mav=new ModelAndView("lesson_list");
+        List<Lesson> lessonList = lessonDao.findAll();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+
+        List<LessonPage> lessonPageList = lessonList.stream().map( l -> {
+            LessonPage lessonPage = new LessonPage();
+            lessonPage.setLessonName(l.getLessonName());
+            lessonPage.setLearnTimes(l.getLearnTimes());
+            lessonPage.setLessonDesc(l.getLessonDesc());
+            lessonPage.setCreateDateStr(sdf.format(l.getGmtCreate()));
+
+            return lessonPage;
+        }).collect(Collectors.toList());
+
+        mav.getModel().put("lessonPageList", lessonPageList);
         return mav;
     }
 }

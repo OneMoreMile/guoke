@@ -71,17 +71,61 @@
         </div>
     </div>
     <div class="form-group">
-        <label for="relativeName" class="col-sm-2 control-label">其它亲属</label>
-        <div class="col-sm-10">
-            <input type="text" class="form-control" id="relativeName" name="relativeName" placeholder="请输入姓名">
-        </div>
-    </div>
-    <div class="form-group">
         <label for="phoneNum" class="col-sm-2 control-label">联系手机</label>
         <div class="col-sm-10">
             <input type="text" class="form-control" id="phoneNum" name="phoneNum" placeholder="请输入手机号">
         </div>
     </div>
+
+    <div class="form-group">
+        <label for="phoneNum2" class="col-sm-2 control-label">联系手机2</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="phoneNum2" name="phoneNum2" placeholder="请输入手机号2">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="kidGarden" class="col-sm-2 control-label">幼儿园</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="kidGarden" name="kidGarden" placeholder="幼儿园信息">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="primarySchool" class="col-sm-2 control-label">小学</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="primarySchool" name="primarySchool" placeholder="小学信息">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="middleSchool" class="col-sm-2 control-label">初中</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="middleSchool" name="middleSchool" placeholder="初中信息">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="homeAddress" class="col-sm-2 control-label">住址</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="homeAddress" name="homeAddress" placeholder="住址">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="wechat" class="col-sm-2 control-label">微信</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="wechat" name="wechat" placeholder="微信号">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="qq" class="col-sm-2 control-label">QQ</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="qq" name="qq" placeholder="qq号">
+        </div>
+    </div>
+
 
     <div class="form-group">
         <label class="col-sm-2 control-label" for="signDateStr">签约日期</label>

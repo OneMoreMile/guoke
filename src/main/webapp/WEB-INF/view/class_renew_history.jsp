@@ -10,13 +10,37 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div class="container">
 
-<%--<h1>上课历史记录</h1>--%>
-
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                        aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">果核科学</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="javascript:void(0)" onclick="is_submit(1)">学员管理</a></li>
+                    <li><a href="javascript:void(0)" onclick="is_submit(6)">课程管理</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <%--<li class="active"><a href="./">Default <span class="sr-only">(current)</span></a></li>--%>
+                    <li><a href="javascript:void(0)" onclick="is_submit(5)">退出系统</a></li>
+                </ul>
+            </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
 <form class="form-inline" role="form" id="form1" name="form1" METHOD="post">
     <div>
         <table class="table table-bordered">
-            <caption><h2>续课记录</h2></caption>
+            <caption><h3>续课记录</h3></caption>
             <thead>
             <tr>
                 <th>序号</th>
@@ -38,8 +62,7 @@
         </table>
     </div>
 </form>
-
-
+</div>
 </body>
 </html>
 
